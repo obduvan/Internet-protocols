@@ -27,7 +27,7 @@ def check_arguments(first: int, last: int) -> bool:
 
 
 def socket_scan_tcp(first: int, last: int) -> set:
-    """Создание сокета. Подлючение к портам на локальном хосте"""
+    """Создание TCP-сокета. Подлючение к портам на локальном хосте"""
     
     ports = set()
     for port in range(first, last + 1):
