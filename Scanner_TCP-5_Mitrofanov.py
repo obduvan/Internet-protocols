@@ -3,7 +3,7 @@ import socket
 
 
 def parse_arguments() -> list:
-    """Парсим аргументы"""
+    """Парсинг аргументов"""
 
     parser = argparse.ArgumentParser(
         description='Ports scanning script. Input: python3 ports_scan.py -p [starting_port] [ending_port]')
@@ -12,6 +12,8 @@ def parse_arguments() -> list:
 
 
 def print_ports(ports: set, first: int, last: int):
+    """Вывод результата работы скрипта"""
+    
     if len(ports) == 0:
         print("There are not open TCP ports in the range {} - {}.".format(first, last))
     else:
