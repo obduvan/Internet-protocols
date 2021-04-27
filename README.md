@@ -1,4 +1,4 @@
 # Internet-protocols
 
 ## Сделано:
-* Сканнер открытых TCP портов на заданном диапозоне: **Scanner_TCP-5_Mitrofanov.py**
+* Асинхронный сканнер открытых TCP и UDP портов на заданном диапозоне: **Scanner_ports_Mitrofanov.py**
