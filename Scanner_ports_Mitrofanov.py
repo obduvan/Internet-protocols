@@ -1,13 +1,11 @@
 import argparse
-import concurrent
 import itertools
 import socket
-import sys
-import time
 from concurrent import futures
 from typing import Optional
 
 COD = "utf-8"
+HOST = "localhost"
 
 
 def parse_arguments():
@@ -15,9 +13,9 @@ def parse_arguments():
 
     parser = argparse.ArgumentParser(
         description='Ports scanning script.\n '
-                    'Input: python3 ports_scan.py -p [starting_port] [ending_port] -a [address] -t')
+                    'Input: python3 ports_scan.py -p [starting_port] [ending_port] -a [address]')
     parser.add_argument('-p', '--port', help='Starting and ending ports', nargs=2, type=int)
-    parser.add_argument('-a', '--addr', help='IP address (default=localhost)', nargs=1, default="localhost")
+    parser.add_argument('-a', '--addr', help='IP address (default=localhost)', nargs=1, type=str, default="localhost")
     parse = parser.parse_args()
     return parse.port, parse.addr, True
 
@@ -46,7 +44,7 @@ def scan_udp(port: int):
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
         sock.settimeout(0.01)
         try:
-            sock.sendto("data".encode(COD), ("localhost", port))
+            sock.sendto("data".encode(COD), (HOST, port))
             sock.recvfrom(1024)
             return port
         except Exception as e:
@@ -60,7 +58,7 @@ def scan_tcp(port: int) -> Optional[int]:
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.settimeout(0.01)
-        if s.connect_ex(("localhost", port)) == 0:
+        if s.connect_ex((HOST, port)) == 0:
             return port
     return None
 
@@ -108,9 +106,11 @@ def main(port, is_concurrent):
 
 
 if __name__ == "__main__":
-    port, host, is_concurrent = parse_arguments()
+    port, HOST, is_concurrent = parse_arguments()
+    if type(HOST) == list:
+        HOST = HOST[0]
     if check_arguments(*port):
-        print(f'Scanning {host[0]}')
+        print(f'Scanning {HOST}')
         main(port, is_concurrent)
     else:
         print("\rIncorrect input.")
