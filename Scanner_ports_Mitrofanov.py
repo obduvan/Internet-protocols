@@ -27,9 +27,9 @@ def print_ports(ports: dict, start: int, end: int):
     ports_udp = ports.get("udp")
     print(f"Interval: {start} - {end}")
 
-    print(f"Number of TCP ports: {len(ports_tcp):<10} Number of UDP ports: {len(ports_udp)}")
+    print(f"Number of TCP and UDP ports: {len(ports_tcp)}")
     for port_tcp, port_udp in itertools.zip_longest(ports_tcp, ports_udp, fillvalue=""):
-        print(f"{port_tcp:<31} {port_udp}", )
+        print(f"{port_tcp:<31} {port_udp}")
 
 
 def check_arguments(first: int, last: int) -> bool:
