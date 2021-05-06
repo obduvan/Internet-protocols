@@ -13,7 +13,7 @@ def parse_arguments():
 
     parser = argparse.ArgumentParser(
         description='Ports scanning script.\n '
-                    'Input: python3 ports_scan.py -p [starting_port] [ending_port] -a [address]')
+                    'Input: python3 Scanner_ports_Mitrofanov.py -p [starting_port] [ending_port] -a [address]')
     parser.add_argument('-p', '--port', help='Starting and ending ports', nargs=2, type=int)
     parser.add_argument('-a', '--addr', help='IP address (default=localhost)', nargs=1, type=str, default="localhost")
     parse = parser.parse_args()
